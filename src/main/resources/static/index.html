@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JAX-WS 4.0 Service Tester</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .endpoint {
+            background: #e8f4fd;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            margin: 10px 0;
+        }
+        .operation {
+            margin: 15px 0;
+        }
+        .operation h3 {
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+        .soap-example {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 12px;
+            overflow-x: auto;
+            border-left: 4px solid #007bff;
+        }
+        .note {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>JAX-WS 4.0 Service Tester</h1>
+        
+        <div class="section">
+            <h2>Service Information</h2>
+            <p>This page provides information about the JAX-WS 4.0 web service running on Spring Boot 3.</p>
+            
+            <h3>Service Endpoints</h3>
+            <div class="endpoint">
+                <strong>WSDL:</strong> <a href="/ws/users?wsdl" target="_blank">http://localhost:8080/ws/users?wsdl</a>
+            </div>
+            <div class="endpoint">
+                <strong>Service URL:</strong> http://localhost:8080/ws/users
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Available Operations</h2>
+            
+            <div class="operation">
+                <h3>1. getUser</h3>
+                <p>Retrieve a user by ID</p>
+                <div class="soap-example">
+&lt;soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                   xmlns:user="http://example.com/user"&gt;
+   &lt;soapenv:Header/&gt;
+   &lt;soapenv:Body&gt;
+      &lt;user:getUser&gt;
+         &lt;userId&gt;123&lt;/userId&gt;
+      &lt;/user:getUser&gt;
+   &lt;/soapenv:Body&gt;
+&lt;/soapenv:Envelope&gt;
+                </div>
+            </div>
+
+            <div class="operation">
+                <h3>2. createUser</h3>
+                <p>Create a new user</p>
+                <div class="soap-example">
+&lt;soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                   xmlns:user="http://example.com/user"&gt;
+   &lt;soapenv:Header/&gt;
+   &lt;soapenv:Body&gt;
+      &lt;user:createUser&gt;
+         &lt;user&gt;
+            &lt;id&gt;456&lt;/id&gt;
+            &lt;name&gt;Jane Smith&lt;/name&gt;
+            &lt;email&gt;jane.smith@example.com&lt;/email&gt;
+         &lt;/user&gt;
+      &lt;/user:createUser&gt;
+   &lt;/soapenv:Body&gt;
+&lt;/soapenv:Envelope&gt;
+                </div>
+            </div>
+
+            <div class="operation">
+                <h3>3. updateUser</h3>
+                <p>Update an existing user</p>
+                <div class="soap-example">
+&lt;soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                   xmlns:user="http://example.com/user"&gt;
+   &lt;soapenv:Header/&gt;
+   &lt;soapenv:Body&gt;
+      &lt;user:updateUser&gt;
+         &lt;user&gt;
+            &lt;id&gt;123&lt;/id&gt;
+            &lt;name&gt;John Doe Updated&lt;/name&gt;
+            &lt;email&gt;john.updated@example.com&lt;/email&gt;
+         &lt;/user&gt;
+      &lt;/user:updateUser&gt;
+   &lt;/soapenv:Body&gt;
+&lt;/soapenv:Envelope&gt;
+                </div>
+            </div>
+
+            <div class="operation">
+                <h3>4. deleteUser</h3>
+                <p>Delete a user by ID</p>
+                <div class="soap-example">
+&lt;soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                   xmlns:user="http://example.com/user"&gt;
+   &lt;soapenv:Header/&gt;
+   &lt;soapenv:Body&gt;
+      &lt;user:deleteUser&gt;
+         &lt;userId&gt;123&lt;/userId&gt;
+      &lt;/user:deleteUser&gt;
+   &lt;/soapenv:Body&gt;
+&lt;/soapenv:Envelope&gt;
+                </div>
+            </div>
+
+            <div class="operation">
+                <h3>5. getAllUsers</h3>
+                <p>Retrieve all users</p>
+                <div class="soap-example">
+&lt;soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                   xmlns:user="http://example.com/user"&gt;
+   &lt;soapenv:Header/&gt;
+   &lt;soapenv:Body&gt;
+      &lt;user:getAllUsers/&gt;
+   &lt;/soapenv:Body&gt;
+&lt;/soapenv:Envelope&gt;
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Testing Tools</h2>
+            <p>You can test the web service using any of these tools:</p>
+            <ul>
+                <li><strong>SoapUI</strong> - Professional SOAP testing tool</li>
+                <li><strong>Postman</strong> - Modern API testing with SOAP support</li>
+                <li><strong>cURL</strong> - Command-line HTTP client</li>
+                <li><strong>Browser</strong> - Access the WSDL directly</li>
+            </ul>
+        </div>
+
+        <div class="note">
+            <strong>Note:</strong> This service uses SOAP 1.2 with Document/Literal binding style. 
+            Make sure your SOAP client supports SOAP 1.2.
+        </div>
+
+        <div class="section">
+            <h2>Service Configuration</h2>
+            <ul>
+                <li><strong>SOAP Version:</strong> SOAP 1.2</li>
+                <li><strong>Binding Style:</strong> Document/Literal</li>
+                <li><strong>Namespace:</strong> http://example.com/user</li>
+                <li><strong>Port:</strong> 8080</li>
+                <li><strong>Context Path:</strong> /ws</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
