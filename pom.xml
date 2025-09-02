@@ -8,58 +8,83 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.2.0</version>
+        <version>3.5.5</version>
         <relativePath/>
     </parent>
 
     <groupId>com.example</groupId>
     <artifactId>spring-boot-jaxws</artifactId>
     <version>1.0.0</version>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
 
     <name>Spring Boot JAX-WS 4.0 Service</name>
     <description>JAX-WS 4.0 Web Service with Spring Boot 3</description>
 
     <properties>
         <java.version>17</java.version>
+        <spring-boot.version>3.5.5</spring-boot.version>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <cxf.version>4.0.3</cxf.version>
+        <wildfly.version>33.0.0.Final</wildfly.version>
     </properties>
 
     <dependencies>
-        <!-- Spring Boot Starter Web -->
+        <!-- Spring Boot Starter -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <artifactId>spring-boot-starter</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
-        <!-- JAX-WS 4.0 API -->
+        <!-- Apache CXF for JAX-WS -->
         <dependency>
-            <groupId>jakarta.xml.ws</groupId>
-            <artifactId>jakarta.xml.ws-api</artifactId>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-spring-boot-starter-jaxws</artifactId>
+            <version>${cxf.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Jakarta XML Binding (JAXB) -->
+        <dependency>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
             <version>4.0.0</version>
+            <scope>provided</scope>
         </dependency>
 
-        <!-- JAX-WS 4.0 Implementation (Metro) -->
         <dependency>
-            <groupId>org.glassfish.jaxb</groupId>
-            <artifactId>jaxb-runtime</artifactId>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-impl</artifactId>
+            <version>4.0.1</version>
+            <scope>provided</scope>
         </dependency>
 
-        <!-- JAX-WS 4.0 Runtime -->
         <dependency>
-            <groupId>com.sun.xml.ws</groupId>
-            <artifactId>jaxws-rt</artifactId>
-            <version>4.0.0</version>
+            <groupId>jakarta.platform</groupId>
+            <artifactId>jakarta.jakartaee-api</artifactId>
+            <version>10.0.0</version>
+            <scope>provided</scope>
         </dependency>
 
-        <!-- Spring Boot Starter Test -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>2.25.1</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.25.1</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -67,10 +92,30 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                        <configuration>
+                            <skip>true</skip>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.4.0</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
             </plugin>
             
             <!-- JAX-WS Maven Plugin for WSDL generation -->
-            <plugin>
+            <!--plugin>
                 <groupId>com.sun.xml.ws</groupId>
                 <artifactId>jaxws-maven-plugin</artifactId>
                 <version>4.0.0</version>
@@ -86,8 +131,11 @@
                     <genWsdl>true</genWsdl>
                     <keep>true</keep>
                     <destDir>${project.build.directory}/generated-sources/wsdl</destDir>
+                    <wsdlProtocol>soap1.1</wsdlProtocol>
+                    <wsdlLocation>/ws/users?wsdl</wsdlLocation>
+                    <extension>false</extension>
                 </configuration>
-            </plugin>
+            </plugin-->
         </plugins>
     </build>
 </project>
